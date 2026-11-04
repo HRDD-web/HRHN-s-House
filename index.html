@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Our Sweet Home - 우리 가족의 일상 기록 공간</title>
+  <title>Our Sweet Home - 해린해나 가족의 일상 기록 공간</title>
   
   <!-- Tailwind CSS CDN -->
   <script src="https://cdn.tailwindcss.com"></script>
@@ -211,7 +211,7 @@
             👦
           </div>
           <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-600 mb-2 border border-amber-100">호기심 대장 (6세)</span>
-          <h3 class="text-lg font-bold text-slate-800">민준 (첫째)</h3>
+          <h3 class="text-lg font-bold text-slate-800">해린 (첫째)</h3>
           <p class="text-xs text-slate-500 mt-1">"공룡이랑 레고 조립이 세상에서 제일 좋아!"</p>
           <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
             <i data-lucide="puzzle" class="w-3.5 h-3.5 text-amber-500"></i> 레고 마스터
@@ -224,7 +224,7 @@
             👧
           </div>
           <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600 mb-2 border border-emerald-100">미소 천사 (3세)</span>
-          <h3 class="text-lg font-bold text-slate-800">서아 (둘째)</h3>
+          <h3 class="text-lg font-bold text-slate-800">해나 (둘째)</h3>
           <p class="text-xs text-slate-500 mt-1">"음악만 나오면 춤추는 사랑둥이 막내"</p>
           <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
             <i data-lucide="music" class="w-3.5 h-3.5 text-emerald-500"></i> 딸기 킬러 & 댄싱머신
@@ -303,8 +303,8 @@
       <!-- 카테고리 필터 탭 -->
       <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar" id="tagFilterContainer">
         <button class="gallery-tag active px-4 py-1.5 rounded-full text-xs font-semibold bg-skyTheme-600 text-white shadow-sm transition-all" data-tag="all">전체보기</button>
-        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="first">첫째 민준</button>
-        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="second">둘째 서아</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="first">첫째 해린</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="second">둘째 해나</button>
         <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="outdoor">가족 나들이</button>
         <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="daily">소소한 일상</button>
       </div>
@@ -380,7 +380,7 @@
               <div class="bg-skyTheme-50/60 p-4 rounded-2xl border border-skyTheme-100/80 w-full hover:bg-skyTheme-50 transition-colors">
                 <span class="text-xs font-semibold text-skyTheme-600 uppercase">2분기 (초여름 이야기)</span>
                 <h4 class="font-bold text-slate-800 mt-0.5">바다 여행 & 키즈 풀빌라 힐링</h4>
-                <p class="text-xs text-slate-500 mt-1">동해안 모래놀이 가기, 서아 3번째 생일 홈스튜디오 촬영</p>
+                <p class="text-xs text-slate-500 mt-1">동해안 모래놀이 가기, 해나 3번째 생일 홈스튜디오 촬영</p>
               </div>
             </div>
 
@@ -465,8 +465,8 @@
               <select id="memoAuthor" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-skyTheme-400 bg-slate-50">
                 <option value="아빠 👨‍💼">아빠 👨‍💼</option>
                 <option value="엄마 👩‍🎨">엄마 👩‍🎨</option>
-                <option value="민준 👦">민준 (첫째) 👦</option>
-                <option value="서아 👧">서아 (둘째) 👧</option>
+                <option value="해린 👧">해린 (첫째) 👧</option>
+                <option value="해나 👧">해나 (둘째) 👧</option>
               </select>
             </div>
             <div>
@@ -494,7 +494,7 @@
 
           <div>
             <label class="block text-xs font-semibold text-slate-600 mb-1">남길 말</label>
-            <input type="text" id="memoText" placeholder="예: 오늘 저녁 민준이랑 서아가 좋아하는 딸기 사갈게! 🍓" required
+            <input type="text" id="memoText" placeholder="예: 오늘 저녁 해린이랑 해나가 좋아하는 딸기 사갈게! 🍓" required
               class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-skyTheme-400 bg-slate-50">
           </div>
 
@@ -585,17 +585,17 @@
       {
         id: 1,
         title: "햇살 가득한 공원 나들이",
-        desc: "바람개비 돌리며 까르르 웃던 민준이",
+        desc: "바람개비 돌리며 까르르 웃던 해린이",
         tag: "first",
-        tagLabel: "첫째 민준",
+        tagLabel: "첫째 해린",
         src: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 2,
         title: "처음 맛본 딸기 아이스크림",
-        desc: "입가에 듬뿍 묻히고 신난 서아",
+        desc: "입가에 듬뿍 묻히고 신난 해나",
         tag: "second",
-        tagLabel: "둘째 서아",
+        tagLabel: "둘째 해나",
         src: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80"
       },
       {
@@ -619,15 +619,15 @@
         title: "유치원 발표회 날",
         desc: "작은 손으로 열심히 율동하는 씩씩한 오빠",
         tag: "first",
-        tagLabel: "첫째 민준",
+        tagLabel: "첫째 해린",
         src: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=800&q=80"
       },
       {
         id: 6,
         title: "낮잠 자는 천사",
-        desc: "인형 꼭 안고 곤히 잠든 서아",
+        desc: "인형 꼭 안고 곤히 잠든 해나",
         tag: "second",
-        tagLabel: "둘째 서아",
+        tagLabel: "둘째 해나",
         src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80"
       },
       {
@@ -784,7 +784,7 @@
       { id: 2, text: "아이들과 거실 베란다에 방울토마토 심기", done: true },
       { id: 3, text: "초여름 맑은 바다에서 모래놀이 & 키즈 풀빌라", done: false },
       { id: 4, text: "가을 단풍 시즌 가족 글램핑 도전하기", done: false },
-      { id: 5, text: "서아 3번째 생일 홈 파티 & 기념 촬영", done: false },
+      { id: 5, text: "해나 3번째 생일 홈 파티 & 기념 촬영", done: false },
       { id: 6, text: "연말 크리스마스 트리 함께 장식하기", done: false },
       { id: 7, text: "1년 가족 사진 앨범 포토북 제작하기", done: false }
     ];
@@ -878,19 +878,19 @@
         id: 1,
         author: "아빠 👨‍💼",
         color: "sky",
-        text: "이번 주말 날씨 좋다니까 민준이랑 축구공 들고 한강 공원 가자!",
+        text: "이번 주말 날씨 좋다니까 해린이랑 축구공 들고 한강 공원 가자!",
         date: "어제"
       },
       {
         id: 2,
         author: "엄마 👩‍🎨",
         color: "pink",
-        text: "냉장고에 서아 좋아하는 요거트랑 딸기 채워뒀어요~ 🍓",
+        text: "냉장고에 해나 좋아하는 요거트랑 딸기 채워뒀어요~ 🍓",
         date: "오늘 오전"
       },
       {
         id: 3,
-        author: "민준 👦",
+        author: "해린 👦",
         color: "yellow",
         text: "엄마 아빠 사랑해요! 오늘 장난감 정리 혼자 다 했어요!",
         date: "방금 전"
