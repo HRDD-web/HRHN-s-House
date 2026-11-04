@@ -1,0 +1,990 @@
+<!DOCTYPE html>
+<html lang="ko" class="scroll-smooth">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Our Sweet Home - 우리 가족의 일상 기록 공간</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  <!-- Lucide Icons CDN -->
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <!-- Google Fonts: Noto Sans KR -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;600;700;800&family=Outfit:wght@400;600;700&display=swap" rel="stylesheet">
+
+  <script>
+    tailwind.config = {
+      theme: {
+        extend: {
+          fontFamily: {
+            sans: ['"Noto Sans KR"', 'sans-serif'],
+            outfit: ['"Outfit"', 'sans-serif'],
+          },
+          colors: {
+            skyTheme: {
+              50: '#F0F9FF',
+              100: '#E0F2FE',
+              200: '#BAE6FD',
+              300: '#7DD3FC',
+              400: '#38BDF8',
+              500: '#0EA5E9',
+              600: '#0284C7',
+              700: '#0369A1',
+              800: '#075985',
+              900: '#0C4A6E',
+            }
+          },
+          boxShadow: {
+            'soft': '0 8px 30px rgba(56, 189, 248, 0.08)',
+            'card': '0 4px 20px -2px rgba(12, 74, 110, 0.06)',
+            'hover': '0 12px 32px -4px rgba(2, 132, 199, 0.15)',
+          }
+        }
+      }
+    }
+  </script>
+
+  <style>
+    /* 커스텀 스크롤바 및 부드러운 애니메이션 */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+    ::-webkit-scrollbar-track {
+      background: #F0F9FF;
+    }
+    ::-webkit-scrollbar-thumb {
+      background: #BAE6FD;
+      border-radius: 9999px;
+    }
+    ::-webkit-scrollbar-thumb:hover {
+      background: #38BDF8;
+    }
+
+    @keyframes floatCloud {
+      0%, 100% { transform: translateY(0px) translateX(0px); }
+      50% { transform: translateY(-8px) translateX(6px); }
+    }
+    .animate-float-slow {
+      animation: floatCloud 7s ease-in-out infinite;
+    }
+    .animate-float-delay {
+      animation: floatCloud 9s ease-in-out 2s infinite;
+    }
+  </style>
+</head>
+
+<body class="bg-[#F8FAFC] text-slate-800 font-sans antialiased selection:bg-skyTheme-200 selection:text-skyTheme-900">
+
+  <!-- ================= 상단 네비게이션 ================= -->
+  <header class="sticky top-0 z-40 bg-white/80 backdrop-blur-md border-b border-skyTheme-100/80 transition-all duration-300">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 h-16 sm:h-20 flex items-center justify-between">
+      <!-- 로고 -->
+      <a href="#" class="flex items-center gap-2.5 group">
+        <div class="w-10 h-10 rounded-2xl bg-gradient-to-br from-skyTheme-400 to-skyTheme-600 flex items-center justify-center text-white shadow-md shadow-skyTheme-500/20 group-hover:scale-105 transition-transform">
+          <i data-lucide="home" class="w-5 h-5"></i>
+        </div>
+        <div class="flex flex-col">
+          <span class="font-outfit font-bold text-lg tracking-tight text-slate-800 flex items-center gap-1.5">
+            Our Sweet Home
+            <span class="inline-block w-2 h-2 rounded-full bg-skyTheme-400"></span>
+          </span>
+          <span class="text-[11px] text-skyTheme-700 font-medium tracking-wide">우리집 일상 기록</span>
+        </div>
+      </a>
+
+      <!-- 데스크톱 메뉴 -->
+      <nav class="hidden md:flex items-center gap-1 bg-skyTheme-50/70 p-1.5 rounded-full border border-skyTheme-100">
+        <a href="#about" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-skyTheme-700 hover:bg-white rounded-full transition-all flex items-center gap-1.5">
+          <i data-lucide="heart" class="w-4 h-4 text-skyTheme-500"></i> 우리집 소개
+        </a>
+        <a href="#gallery" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-skyTheme-700 hover:bg-white rounded-full transition-all flex items-center gap-1.5">
+          <i data-lucide="image" class="w-4 h-4 text-skyTheme-500"></i> 애기들 사진
+        </a>
+        <a href="#plans" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-skyTheme-700 hover:bg-white rounded-full transition-all flex items-center gap-1.5">
+          <i data-lucide="calendar" class="w-4 h-4 text-skyTheme-500"></i> 1년 계획
+        </a>
+        <a href="#board" class="px-4 py-2 text-sm font-medium text-slate-600 hover:text-skyTheme-700 hover:bg-white rounded-full transition-all flex items-center gap-1.5">
+          <i data-lucide="message-square" class="w-4 h-4 text-skyTheme-500"></i> 가족 메모
+        </a>
+      </nav>
+
+      <!-- 모바일 햄버거 버튼 -->
+      <button id="mobileMenuBtn" class="md:hidden p-2 rounded-xl text-slate-600 hover:text-skyTheme-600 hover:bg-skyTheme-50">
+        <i data-lucide="menu" class="w-6 h-6"></i>
+      </button>
+    </div>
+
+    <!-- 모바일 드롭다운 메뉴 -->
+    <div id="mobileMenu" class="hidden md:hidden border-t border-skyTheme-100 bg-white/95 backdrop-blur-lg px-4 py-3 space-y-1">
+      <a href="#about" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-skyTheme-50 hover:text-skyTheme-700">우리집 소개</a>
+      <a href="#gallery" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-skyTheme-50 hover:text-skyTheme-700">애기들 사진</a>
+      <a href="#plans" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-skyTheme-50 hover:text-skyTheme-700">1년 계획 & 버킷리스트</a>
+      <a href="#board" class="block px-4 py-2.5 rounded-xl text-sm font-medium text-slate-700 hover:bg-skyTheme-50 hover:text-skyTheme-700">가족 메모판</a>
+    </div>
+  </header>
+
+
+  <!-- ================= HERO 배너 섹션 ================= -->
+  <section class="relative overflow-hidden pt-10 pb-16 lg:py-24 bg-gradient-to-b from-skyTheme-100/70 via-skyTheme-50/40 to-transparent">
+    <!-- 배경 장식 (구름 모양 데코) -->
+    <div class="absolute -top-16 -left-16 w-64 h-64 bg-white/70 rounded-full blur-2xl animate-float-slow pointer-events-none"></div>
+    <div class="absolute top-20 right-10 w-80 h-80 bg-skyTheme-200/50 rounded-full blur-3xl animate-float-delay pointer-events-none"></div>
+    <div class="absolute bottom-4 left-1/3 w-72 h-72 bg-skyTheme-100/60 rounded-full blur-2xl pointer-events-none"></div>
+
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 relative z-10 text-center">
+      <div class="inline-flex items-center gap-2 px-3.5 py-1.5 rounded-full bg-white/80 border border-skyTheme-200 shadow-sm text-skyTheme-700 text-xs sm:text-sm font-medium mb-5 backdrop-blur-sm">
+        <i data-lucide="sparkles" class="w-4 h-4 text-skyTheme-500"></i>
+        <span>맑은 하늘처럼 눈부신 하루의 기록</span>
+      </div>
+
+      <h1 class="text-3xl sm:text-5xl lg:text-6xl font-extrabold text-slate-800 tracking-tight leading-tight sm:leading-snug">
+        사랑과 웃음이 가득한 <br class="hidden sm:inline" />
+        <span class="text-transparent bg-clip-text bg-gradient-to-r from-skyTheme-600 via-skyTheme-500 to-skyTheme-400">
+          우리 가족의 보금자리
+        </span>
+      </h1>
+
+      <p class="mt-4 sm:mt-6 text-base sm:text-lg text-slate-600 max-w-2xl mx-auto leading-relaxed">
+        아이들의 매일 자라나는 작은 발걸음과 우리가 함께 써 내려가는 소중한 순간들을 담았습니다.
+      </p>
+
+      <!-- 퀵 상태 칩 -->
+      <div class="mt-8 flex flex-wrap justify-center items-center gap-3 text-xs sm:text-sm text-slate-600">
+        <span class="bg-white px-4 py-2 rounded-2xl shadow-card border border-skyTheme-100 flex items-center gap-2">
+          <i data-lucide="map-pin" class="w-4 h-4 text-skyTheme-500"></i> 따뜻한 햇살 드는 우리 집
+        </span>
+        <span class="bg-white px-4 py-2 rounded-2xl shadow-card border border-skyTheme-100 flex items-center gap-2">
+          <i data-lucide="users" class="w-4 h-4 text-skyTheme-500"></i> 4인 가족 + 사랑 한 스푼
+        </span>
+        <span class="bg-white px-4 py-2 rounded-2xl shadow-card border border-skyTheme-100 flex items-center gap-2">
+          <i data-lucide="sun" class="w-4 h-4 text-skyTheme-500"></i> 언제나 맑음
+        </span>
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= 1. 우리집 소개 (ABOUT) ================= -->
+  <section id="about" class="py-16 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- 섹션 헤더 -->
+      <div class="text-center max-w-xl mx-auto mb-14">
+        <span class="text-skyTheme-600 font-semibold text-sm uppercase tracking-wider">About Our Family</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">행복이 머무는 우리 집</h2>
+        <div class="w-12 h-1 bg-skyTheme-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <!-- 패밀리 멤버 카드 그리드 -->
+      <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 mb-16">
+        <!-- 아빠 -->
+        <div class="bg-white rounded-3xl p-6 shadow-card hover:shadow-hover transition-all duration-300 border border-skyTheme-100 text-center flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-2xl bg-skyTheme-100 text-skyTheme-600 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform text-3xl shadow-inner">
+            👨‍💼
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-skyTheme-50 text-skyTheme-600 mb-2 border border-skyTheme-100">든든한 지원군</span>
+          <h3 class="text-lg font-bold text-slate-800">아빠</h3>
+          <p class="text-xs text-slate-500 mt-1">"주말에는 캠핑과 요리 담당 요리사!"</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
+            <i data-lucide="coffee" class="w-3.5 h-3.5 text-skyTheme-400"></i> 핸드드립 커피 애호가
+          </div>
+        </div>
+
+        <!-- 엄마 -->
+        <div class="bg-white rounded-3xl p-6 shadow-card hover:shadow-hover transition-all duration-300 border border-skyTheme-100 text-center flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-2xl bg-rose-50 text-rose-500 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform text-3xl shadow-inner">
+            👩‍🎨
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-rose-50 text-rose-500 mb-2 border border-rose-100">우리집 총괄 플래너</span>
+          <h3 class="text-lg font-bold text-slate-800">엄마</h3>
+          <p class="text-xs text-slate-500 mt-1">"온기 넘치는 사진과 추억을 기록해요"</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
+            <i data-lucide="camera" class="w-3.5 h-3.5 text-rose-400"></i> 기록과 홈가드닝
+          </div>
+        </div>
+
+        <!-- 첫째 -->
+        <div class="bg-white rounded-3xl p-6 shadow-card hover:shadow-hover transition-all duration-300 border border-skyTheme-100 text-center flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-2xl bg-amber-50 text-amber-500 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform text-3xl shadow-inner">
+            👦
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-amber-50 text-amber-600 mb-2 border border-amber-100">호기심 대장 (6세)</span>
+          <h3 class="text-lg font-bold text-slate-800">민준 (첫째)</h3>
+          <p class="text-xs text-slate-500 mt-1">"공룡이랑 레고 조립이 세상에서 제일 좋아!"</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
+            <i data-lucide="puzzle" class="w-3.5 h-3.5 text-amber-500"></i> 레고 마스터
+          </div>
+        </div>
+
+        <!-- 둘째 -->
+        <div class="bg-white rounded-3xl p-6 shadow-card hover:shadow-hover transition-all duration-300 border border-skyTheme-100 text-center flex flex-col items-center group">
+          <div class="w-20 h-20 rounded-2xl bg-emerald-50 text-emerald-500 flex items-center justify-center mb-4 group-hover:scale-105 transition-transform text-3xl shadow-inner">
+            👧
+          </div>
+          <span class="px-2.5 py-0.5 rounded-full text-xs font-semibold bg-emerald-50 text-emerald-600 mb-2 border border-emerald-100">미소 천사 (3세)</span>
+          <h3 class="text-lg font-bold text-slate-800">서아 (둘째)</h3>
+          <p class="text-xs text-slate-500 mt-1">"음악만 나오면 춤추는 사랑둥이 막내"</p>
+          <div class="mt-4 pt-3 border-t border-slate-100 w-full text-xs text-slate-500 flex justify-center items-center gap-1">
+            <i data-lucide="music" class="w-3.5 h-3.5 text-emerald-500"></i> 딸기 킬러 & 댄싱머신
+          </div>
+        </div>
+      </div>
+
+      <!-- 집안 스팟 & 가훈 안내 -->
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <!-- 스팟 1 -->
+        <div class="bg-white rounded-3xl p-6 border border-skyTheme-100 shadow-card flex items-start gap-4">
+          <div class="p-3 bg-skyTheme-50 text-skyTheme-600 rounded-2xl shrink-0">
+            <i data-lucide="sofa" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800">아늑한 햇살 거실</h4>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+              온 가족이 옹기종기 모여 그림책을 읽고 뒹굴거리는 포근한 공간입니다.
+            </p>
+          </div>
+        </div>
+
+        <!-- 스팟 2 -->
+        <div class="bg-white rounded-3xl p-6 border border-skyTheme-100 shadow-card flex items-start gap-4">
+          <div class="p-3 bg-skyTheme-50 text-skyTheme-600 rounded-2xl shrink-0">
+            <i data-lucide="cup-soda" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800">달콤한 홈카페</h4>
+            <p class="text-xs sm:text-sm text-slate-500 mt-1 leading-relaxed">
+              아침에는 그윽한 커피 향기가, 주말에는 아이들의 과일 주스가 만들어지는 곳!
+            </p>
+          </div>
+        </div>
+
+        <!-- 스팟 3 -->
+        <div class="bg-white rounded-3xl p-6 border border-skyTheme-100 shadow-card flex items-start gap-4">
+          <div class="p-3 bg-skyTheme-50 text-skyTheme-600 rounded-2xl shrink-0">
+            <i data-lucide="shield-check" class="w-6 h-6"></i>
+          </div>
+          <div>
+            <h4 class="font-bold text-slate-800">우리 집 세 가지 약속</h4>
+            <ul class="text-xs text-slate-500 mt-1.5 space-y-1">
+              <li>• 하루 세 번 “사랑해” 표현하기</li>
+              <li>• 저녁 식사는 다 같이 눈 맞추며 냠냠</li>
+              <li>• 자기 전에는 정리정돈 함께하기</li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= 2. 애기들 사진 갤러리 (GALLERY) ================= -->
+  <section id="gallery" class="py-16 bg-gradient-to-b from-skyTheme-50/50 to-white scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- 섹션 헤더 -->
+      <div class="flex flex-col sm:flex-row sm:items-end justify-between mb-8 gap-4">
+        <div>
+          <span class="text-skyTheme-600 font-semibold text-sm uppercase tracking-wider">Kids Photo Album</span>
+          <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">빛나는 아이들의 순간</h2>
+          <p class="text-xs sm:text-sm text-slate-500 mt-1">우리 아이들의 사랑스러운 매일을 사진으로 모아봤어요.</p>
+        </div>
+
+        <!-- 내 사진 직접 추가하기 버튼 -->
+        <label for="photoUpload" class="inline-flex items-center justify-center gap-2 px-4 py-2.5 bg-skyTheme-600 hover:bg-skyTheme-700 text-white rounded-2xl text-xs sm:text-sm font-semibold shadow-md shadow-skyTheme-600/20 cursor-pointer transition-colors shrink-0">
+          <i data-lucide="upload" class="w-4 h-4"></i>
+          <span>새 사진 올리기</span>
+          <input type="file" id="photoUpload" accept="image/*" class="hidden" multiple>
+        </label>
+      </div>
+
+      <!-- 카테고리 필터 탭 -->
+      <div class="flex items-center gap-2 overflow-x-auto pb-3 mb-6 no-scrollbar" id="tagFilterContainer">
+        <button class="gallery-tag active px-4 py-1.5 rounded-full text-xs font-semibold bg-skyTheme-600 text-white shadow-sm transition-all" data-tag="all">전체보기</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="first">첫째 민준</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="second">둘째 서아</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="outdoor">가족 나들이</button>
+        <button class="gallery-tag px-4 py-1.5 rounded-full text-xs font-semibold bg-white border border-slate-200 text-slate-600 hover:border-skyTheme-300 transition-all" data-tag="daily">소소한 일상</button>
+      </div>
+
+      <!-- 갤러리 그리드 -->
+      <div id="galleryGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-5">
+        <!-- 갤러리 아이템은 JS로 동적 렌더링 됩니다 -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= 3. 1년 계획 & 버킷리스트 (PLANS) ================= -->
+  <section id="plans" class="py-16 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- 섹션 헤더 -->
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-skyTheme-600 font-semibold text-sm uppercase tracking-wider">Annual Roadmap & Bucket List</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">우리 가족 1년 계획</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">올 한 해 동안 함께 만들고 싶은 특별한 시간들</p>
+        <div class="w-12 h-1 bg-skyTheme-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <!-- 버킷리스트 진행 상황 프로그레스 바 카드 -->
+      <div class="bg-gradient-to-r from-skyTheme-500 to-skyTheme-700 rounded-3xl p-6 sm:p-8 text-white shadow-lg shadow-skyTheme-500/20 mb-10">
+        <div class="flex flex-col sm:flex-row sm:items-center justify-between gap-3 mb-4">
+          <div>
+            <h3 class="text-lg sm:text-xl font-bold flex items-center gap-2">
+              <i data-lucide="check-circle-2" class="w-5 h-5 text-skyTheme-200"></i>
+              2026 버킷리스트 달성도
+            </h3>
+            <p class="text-xs sm:text-sm text-skyTheme-100 mt-0.5">작은 성취들이 모여 가족의 큰 행복이 됩니다.</p>
+          </div>
+          <div class="flex items-baseline gap-1">
+            <span id="progressPercent" class="text-3xl sm:text-4xl font-extrabold">0%</span>
+            <span id="progressRatio" class="text-xs sm:text-sm text-skyTheme-200 font-medium">(0/0 완료)</span>
+          </div>
+        </div>
+
+        <!-- Bar -->
+        <div class="w-full bg-black/20 rounded-full h-3.5 p-0.5 overflow-hidden">
+          <div id="progressBar" class="bg-white h-full rounded-full transition-all duration-500" style="width: 0%"></div>
+        </div>
+      </div>
+
+      <div class="grid grid-cols-1 lg:grid-cols-12 gap-8">
+        <!-- 4분기 로드맵 타임라인 (좌측 7컬럼) -->
+        <div class="lg:col-span-7 bg-white rounded-3xl p-6 sm:p-8 border border-skyTheme-100 shadow-card">
+          <h3 class="text-lg font-bold text-slate-800 mb-6 flex items-center gap-2">
+            <i data-lucide="compass" class="w-5 h-5 text-skyTheme-500"></i>
+            분기별 시즌 로드맵
+          </h3>
+
+          <div class="space-y-6 relative before:absolute before:inset-0 before:left-3.5 before:w-0.5 before:bg-skyTheme-100">
+            <!-- 1분기 -->
+            <div class="relative flex items-start gap-4">
+              <div class="w-7 h-7 rounded-full bg-skyTheme-500 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white z-10 shrink-0">
+                1
+              </div>
+              <div class="bg-skyTheme-50/60 p-4 rounded-2xl border border-skyTheme-100/80 w-full hover:bg-skyTheme-50 transition-colors">
+                <span class="text-xs font-semibold text-skyTheme-600 uppercase">1분기 (봄의 시작)</span>
+                <h4 class="font-bold text-slate-800 mt-0.5">봄꽃 피크닉 & 아이들 새 학기 적응</h4>
+                <p class="text-xs text-slate-500 mt-1">근교 수목원 벚꽃 나들이, 첫째 유치원 새 반 응원 파티 열기</p>
+              </div>
+            </div>
+
+            <!-- 2분기 -->
+            <div class="relative flex items-start gap-4">
+              <div class="w-7 h-7 rounded-full bg-skyTheme-500 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white z-10 shrink-0">
+                2
+              </div>
+              <div class="bg-skyTheme-50/60 p-4 rounded-2xl border border-skyTheme-100/80 w-full hover:bg-skyTheme-50 transition-colors">
+                <span class="text-xs font-semibold text-skyTheme-600 uppercase">2분기 (초여름 이야기)</span>
+                <h4 class="font-bold text-slate-800 mt-0.5">바다 여행 & 키즈 풀빌라 힐링</h4>
+                <p class="text-xs text-slate-500 mt-1">동해안 모래놀이 가기, 서아 3번째 생일 홈스튜디오 촬영</p>
+              </div>
+            </div>
+
+            <!-- 3분기 -->
+            <div class="relative flex items-start gap-4">
+              <div class="w-7 h-7 rounded-full bg-skyTheme-500 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white z-10 shrink-0">
+                3
+              </div>
+              <div class="bg-skyTheme-50/60 p-4 rounded-2xl border border-skyTheme-100/80 w-full hover:bg-skyTheme-50 transition-colors">
+                <span class="text-xs font-semibold text-skyTheme-600 uppercase">3분기 (풍성한 가을)</span>
+                <h4 class="font-bold text-slate-800 mt-0.5">가족 글램핑 & 단풍 숲 체험</h4>
+                <p class="text-xs text-slate-500 mt-1">별빛 아래 마시멜로 굽기, 도토리와 낙엽 모아서 그림 만들기</p>
+              </div>
+            </div>
+
+            <!-- 4분기 -->
+            <div class="relative flex items-start gap-4">
+              <div class="w-7 h-7 rounded-full bg-skyTheme-500 text-white flex items-center justify-center font-bold text-xs ring-4 ring-white z-10 shrink-0">
+                4
+              </div>
+              <div class="bg-skyTheme-50/60 p-4 rounded-2xl border border-skyTheme-100/80 w-full hover:bg-skyTheme-50 transition-colors">
+                <span class="text-xs font-semibold text-skyTheme-600 uppercase">4분기 (따뜻한 연말)</span>
+                <h4 class="font-bold text-slate-800 mt-0.5">크리스마스 트리 꾸미기 & 연말 포토북 완성</h4>
+                <p class="text-xs text-slate-500 mt-1">1년 동안 찍은 사진으로 앨범 인쇄하고 우리 가족 연말 시상식 진행</p>
+              </div>
+            </div>
+          </div>
+        </div>
+
+        <!-- 인터랙티브 버킷리스트 체크 (우측 5컬럼) -->
+        <div class="lg:col-span-5 bg-white rounded-3xl p-6 sm:p-8 border border-skyTheme-100 shadow-card flex flex-col justify-between">
+          <div>
+            <div class="flex items-center justify-between mb-4">
+              <h3 class="text-lg font-bold text-slate-800 flex items-center gap-2">
+                <i data-lucide="list-checks" class="w-5 h-5 text-skyTheme-500"></i>
+                올해의 체크리스트
+              </h3>
+              <span class="text-xs text-slate-400">클릭하여 완료</span>
+            </div>
+
+            <!-- 계획 리스트 컨테이너 -->
+            <ul id="planItemsList" class="space-y-2.5 max-h-[380px] overflow-y-auto pr-1">
+              <!-- JS 동적 생성 -->
+            </ul>
+          </div>
+
+          <!-- 새 목표 추가 입력 폼 -->
+          <form id="addPlanForm" class="mt-6 pt-4 border-t border-slate-100">
+            <div class="flex gap-2">
+              <input type="text" id="newPlanInput" placeholder="새로운 계획 입력..." required
+                class="flex-1 px-4 py-2.5 rounded-2xl bg-slate-50 border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-skyTheme-400 focus:bg-white transition-all">
+              <button type="submit" class="px-4 py-2.5 bg-skyTheme-500 hover:bg-skyTheme-600 text-white rounded-2xl text-xs sm:text-sm font-semibold transition-colors shrink-0 flex items-center gap-1">
+                <i data-lucide="plus" class="w-4 h-4"></i> 추가
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+
+  <!-- ================= 4. 가족 메모판 (FAMILY BOARD) ================= -->
+  <section id="board" class="py-16 bg-skyTheme-50/40 scroll-mt-20">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6">
+      
+      <!-- 섹션 헤더 -->
+      <div class="text-center max-w-xl mx-auto mb-10">
+        <span class="text-skyTheme-600 font-semibold text-sm uppercase tracking-wider">Family Message Board</span>
+        <h2 class="text-2xl sm:text-3xl font-bold text-slate-800 mt-1">우리 가족 한마디</h2>
+        <p class="text-xs sm:text-sm text-slate-500 mt-1">서로에게 힘이 되는 짧은 쪽지를 남겨보세요.</p>
+        <div class="w-12 h-1 bg-skyTheme-400 mx-auto mt-3 rounded-full"></div>
+      </div>
+
+      <!-- 메모 작성 카드 -->
+      <div class="bg-white rounded-3xl p-6 shadow-card border border-skyTheme-100 max-w-2xl mx-auto mb-10">
+        <form id="memoForm" class="space-y-4">
+          <div class="grid grid-cols-2 gap-3">
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">작성자</label>
+              <select id="memoAuthor" class="w-full px-3 py-2 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-skyTheme-400 bg-slate-50">
+                <option value="아빠 👨‍💼">아빠 👨‍💼</option>
+                <option value="엄마 👩‍🎨">엄마 👩‍🎨</option>
+                <option value="민준 👦">민준 (첫째) 👦</option>
+                <option value="서아 👧">서아 (둘째) 👧</option>
+              </select>
+            </div>
+            <div>
+              <label class="block text-xs font-semibold text-slate-600 mb-1">쪽지 색상</label>
+              <div class="flex items-center gap-2 h-9">
+                <label class="cursor-pointer">
+                  <input type="radio" name="memoColor" value="sky" checked class="hidden peer">
+                  <span class="w-6 h-6 rounded-full bg-sky-100 border-2 border-transparent peer-checked:border-sky-500 block shadow-sm"></span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="memoColor" value="yellow" class="hidden peer">
+                  <span class="w-6 h-6 rounded-full bg-amber-100 border-2 border-transparent peer-checked:border-amber-500 block shadow-sm"></span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="memoColor" value="pink" class="hidden peer">
+                  <span class="w-6 h-6 rounded-full bg-rose-100 border-2 border-transparent peer-checked:border-rose-500 block shadow-sm"></span>
+                </label>
+                <label class="cursor-pointer">
+                  <input type="radio" name="memoColor" value="green" class="hidden peer">
+                  <span class="w-6 h-6 rounded-full bg-emerald-100 border-2 border-transparent peer-checked:border-emerald-500 block shadow-sm"></span>
+                </label>
+              </div>
+            </div>
+          </div>
+
+          <div>
+            <label class="block text-xs font-semibold text-slate-600 mb-1">남길 말</label>
+            <input type="text" id="memoText" placeholder="예: 오늘 저녁 민준이랑 서아가 좋아하는 딸기 사갈게! 🍓" required
+              class="w-full px-4 py-2.5 rounded-xl border border-slate-200 text-xs sm:text-sm focus:outline-none focus:border-skyTheme-400 bg-slate-50">
+          </div>
+
+          <div class="flex justify-end">
+            <button type="submit" class="px-5 py-2.5 bg-skyTheme-600 hover:bg-skyTheme-700 text-white rounded-xl text-xs sm:text-sm font-semibold transition-colors flex items-center gap-1.5 shadow-sm">
+              <i data-lucide="send" class="w-3.5 h-3.5"></i> 쪽지 붙이기
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 쪽지 리스트 그리드 -->
+      <div id="memoGrid" class="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+        <!-- JS로 동적 렌더링 -->
+      </div>
+    </div>
+  </section>
+
+
+  <!-- ================= 갤러리 이미지 라이트박스 모달 ================= -->
+  <div id="lightboxModal" class="fixed inset-0 z-50 bg-slate-900/85 backdrop-blur-sm hidden items-center justify-center p-4">
+    <div class="relative max-w-4xl w-full flex flex-col items-center">
+      <!-- 닫기 버튼 -->
+      <button id="closeLightboxBtn" class="absolute -top-12 right-0 text-white hover:text-skyTheme-300 p-2 text-sm flex items-center gap-1">
+        <i data-lucide="x" class="w-6 h-6"></i>
+        <span>닫기 (ESC)</span>
+      </button>
+
+      <div class="bg-white rounded-3xl overflow-hidden shadow-2xl max-h-[85vh] flex flex-col w-full">
+        <div class="bg-black flex items-center justify-center overflow-hidden max-h-[65vh]">
+          <img id="lightboxImg" src="" alt="확대 사진" class="w-auto h-auto max-h-[65vh] object-contain">
+        </div>
+        <div class="p-5 flex items-center justify-between bg-white border-t border-slate-100">
+          <div>
+            <h4 id="lightboxTitle" class="font-bold text-slate-800 text-base sm:text-lg">사진 제목</h4>
+            <p id="lightboxDesc" class="text-xs sm:text-sm text-slate-500 mt-0.5">상세 설명</p>
+          </div>
+          <span id="lightboxTag" class="px-3 py-1 rounded-full text-xs font-semibold bg-skyTheme-100 text-skyTheme-700">태그</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
+  <!-- ================= 푸터 ================= -->
+  <footer class="bg-white border-t border-skyTheme-100 py-10">
+    <div class="max-w-6xl mx-auto px-4 sm:px-6 text-center">
+      <div class="flex items-center justify-center gap-2 mb-3">
+        <div class="w-8 h-8 rounded-xl bg-skyTheme-500 text-white flex items-center justify-center">
+          <i data-lucide="heart" class="w-4 h-4 fill-white"></i>
+        </div>
+        <span class="font-outfit font-bold text-slate-800 tracking-tight">Our Sweet Home</span>
+      </div>
+      <p class="text-xs sm:text-sm text-slate-500">
+        매일매일이 선물 같은 우리 가족의 따뜻한 이야기들 © 2026. All rights reserved.
+      </p>
+      <p class="text-[11px] text-skyTheme-600 mt-2 font-medium">
+        사랑하는 아이들의 미소를 영원히 기억하며 🌿
+      </p>
+    </div>
+  </footer>
+
+
+  <!-- ================= 자바스크립트 로직 ================= -->
+  <script>
+    // Lucide 아이콘 초기화 함수
+    function refreshIcons() {
+      if (window.lucide) {
+        lucide.createIcons();
+      }
+    }
+
+    // 1. 모바일 메뉴 토글
+    const mobileMenuBtn = document.getElementById('mobileMenuBtn');
+    const mobileMenu = document.getElementById('mobileMenu');
+    mobileMenuBtn.addEventListener('click', () => {
+      mobileMenu.classList.toggle('hidden');
+    });
+
+    // 모바일 링크 클릭 시 닫기
+    mobileMenu.querySelectorAll('a').forEach(link => {
+      link.addEventListener('click', () => mobileMenu.classList.add('hidden'));
+    });
+
+    // ================= 2. 갤러리 데이터 및 기능 =================
+    // 기본 포토 앨범 데이터 (따뜻한 감성의 Unsplash 이미지)
+    let photosData = [
+      {
+        id: 1,
+        title: "햇살 가득한 공원 나들이",
+        desc: "바람개비 돌리며 까르르 웃던 민준이",
+        tag: "first",
+        tagLabel: "첫째 민준",
+        src: "https://images.unsplash.com/photo-1519689680058-324335c77eba?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 2,
+        title: "처음 맛본 딸기 아이스크림",
+        desc: "입가에 듬뿍 묻히고 신난 서아",
+        tag: "second",
+        tagLabel: "둘째 서아",
+        src: "https://images.unsplash.com/photo-1543332164-6e82f355badc?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 3,
+        title: "주말 바닷가 산책",
+        desc: "모래성 쌓으며 온 가족이 보낸 오후",
+        tag: "outdoor",
+        tagLabel: "가족 나들이",
+        src: "https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 4,
+        title: "거실에서 블록 놀이",
+        desc: "누가누가 높이 쌓나 시합 중!",
+        tag: "daily",
+        tagLabel: "소소한 일상",
+        src: "https://images.unsplash.com/photo-1587654780291-39c9404d746b?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 5,
+        title: "유치원 발표회 날",
+        desc: "작은 손으로 열심히 율동하는 씩씩한 오빠",
+        tag: "first",
+        tagLabel: "첫째 민준",
+        src: "https://images.unsplash.com/photo-1485546246426-74dc88dec4d9?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 6,
+        title: "낮잠 자는 천사",
+        desc: "인형 꼭 안고 곤히 잠든 서아",
+        tag: "second",
+        tagLabel: "둘째 서아",
+        src: "https://images.unsplash.com/photo-1516627145497-ae6968895b74?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 7,
+        title: "가을 숲길 걷기",
+        desc: "알록달록 낙엽 주우며 찰칵",
+        tag: "outdoor",
+        tagLabel: "가족 나들이",
+        src: "https://images.unsplash.com/photo-1478131143081-80f7f84ca84d?auto=format&fit=crop&w=800&q=80"
+      },
+      {
+        id: 8,
+        title: "엄마 아빠와 홈베이킹",
+        desc: "삐뚤빼뚤 쿠키 모양 만들기 대작전",
+        tag: "daily",
+        tagLabel: "소소한 일상",
+        src: "https://images.unsplash.com/photo-1517445312882-bc9910d016b7?auto=format&fit=crop&w=800&q=80"
+      }
+    ];
+
+    let currentFilter = 'all';
+
+    const galleryGrid = document.getElementById('galleryGrid');
+    const tagButtons = document.querySelectorAll('.gallery-tag');
+
+    // 갤러리 렌더 함수
+    function renderGallery() {
+      galleryGrid.innerHTML = '';
+      const filtered = currentFilter === 'all' 
+        ? photosData 
+        : photosData.filter(p => p.tag === currentFilter);
+
+      if (filtered.length === 0) {
+        galleryGrid.innerHTML = `
+          <div class="col-span-full py-12 text-center text-slate-400">
+            <i data-lucide="image-off" class="w-10 h-10 mx-auto mb-2 opacity-50"></i>
+            <p class="text-sm">해당 분류의 사진이 없습니다.</p>
+          </div>
+        `;
+        refreshIcons();
+        return;
+      }
+
+      filtered.forEach(photo => {
+        const card = document.createElement('div');
+        card.className = "group relative bg-white rounded-3xl overflow-hidden border border-skyTheme-100 shadow-card hover:shadow-hover transition-all duration-300 flex flex-col cursor-pointer";
+        card.innerHTML = `
+          <div class="relative w-full aspect-[4/3] bg-slate-100 overflow-hidden">
+            <img src="${photo.src}" alt="${photo.title}" 
+                 class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500"
+                 onerror="this.src='https://placehold.co/600x450/e0f2fe/0369a1?text=우리+아이+사진'">
+            <div class="absolute inset-0 bg-gradient-to-t from-slate-900/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-end p-4">
+              <span class="text-white text-xs flex items-center gap-1 font-medium">
+                <i data-lucide="maximize-2" class="w-3.5 h-3.5"></i> 크게 보기
+              </span>
+            </div>
+            <span class="absolute top-3 left-3 bg-white/90 backdrop-blur-sm text-skyTheme-700 text-[11px] font-semibold px-2.5 py-1 rounded-full border border-skyTheme-100 shadow-sm">
+              ${photo.tagLabel}
+            </span>
+          </div>
+          <div class="p-4 flex-1 flex flex-col justify-between">
+            <div>
+              <h4 class="font-bold text-slate-800 text-sm group-hover:text-skyTheme-600 transition-colors">${photo.title}</h4>
+              <p class="text-xs text-slate-500 mt-1 line-clamp-1">${photo.desc}</p>
+            </div>
+          </div>
+        `;
+        
+        // 클릭 시 모달 열기
+        card.addEventListener('click', () => openLightbox(photo));
+        galleryGrid.appendChild(card);
+      });
+
+      refreshIcons();
+    }
+
+    // 태그 필터 클릭 이벤트
+    tagButtons.forEach(btn => {
+      btn.addEventListener('click', () => {
+        tagButtons.forEach(b => {
+          b.classList.remove('bg-skyTheme-600', 'text-white', 'shadow-sm');
+          b.classList.add('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+        });
+        btn.classList.add('bg-skyTheme-600', 'text-white', 'shadow-sm');
+        btn.classList.remove('bg-white', 'border', 'border-slate-200', 'text-slate-600');
+
+        currentFilter = btn.getAttribute('data-tag');
+        renderGallery();
+      });
+    });
+
+    // 실시간 사용자 사진 업로드 (로컬 미리보기)
+    const photoUploadInput = document.getElementById('photoUpload');
+    photoUploadInput.addEventListener('change', (e) => {
+      const files = e.target.files;
+      if (!files || files.length === 0) return;
+
+      Array.from(files).forEach((file, index) => {
+        const reader = new FileReader();
+        reader.onload = function(evt) {
+          const newPhoto = {
+            id: Date.now() + index,
+            title: file.name.split('.')[0] || "새로 추가된 사진",
+            desc: "방금 추가된 따끈따끈한 가족 추억",
+            tag: "daily",
+            tagLabel: "소소한 일상",
+            src: evt.target.result
+          };
+          photosData.unshift(newPhoto);
+          renderGallery();
+        };
+        reader.readAsDataURL(file);
+      });
+    });
+
+    // 라이트박스 모달 핸들러
+    const lightboxModal = document.getElementById('lightboxModal');
+    const lightboxImg = document.getElementById('lightboxImg');
+    const lightboxTitle = document.getElementById('lightboxTitle');
+    const lightboxDesc = document.getElementById('lightboxDesc');
+    const lightboxTag = document.getElementById('lightboxTag');
+    const closeLightboxBtn = document.getElementById('closeLightboxBtn');
+
+    function openLightbox(photo) {
+      lightboxImg.src = photo.src;
+      lightboxTitle.textContent = photo.title;
+      lightboxDesc.textContent = photo.desc;
+      lightboxTag.textContent = photo.tagLabel;
+      lightboxModal.classList.remove('hidden');
+      lightboxModal.classList.add('flex');
+      document.body.style.overflow = 'hidden';
+    }
+
+    function closeLightbox() {
+      lightboxModal.classList.add('hidden');
+      lightboxModal.classList.remove('flex');
+      document.body.style.overflow = '';
+    }
+
+    closeLightboxBtn.addEventListener('click', closeLightbox);
+    lightboxModal.addEventListener('click', (e) => {
+      if (e.target === lightboxModal) closeLightbox();
+    });
+    window.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape' && !lightboxModal.classList.contains('hidden')) {
+        closeLightbox();
+      }
+    });
+
+
+    // ================= 3. 1년 계획 & 버킷리스트 로직 =================
+    const defaultPlans = [
+      { id: 1, text: "봄맞이 근교 수목원 가족 소풍 가기", done: true },
+      { id: 2, text: "아이들과 거실 베란다에 방울토마토 심기", done: true },
+      { id: 3, text: "초여름 맑은 바다에서 모래놀이 & 키즈 풀빌라", done: false },
+      { id: 4, text: "가을 단풍 시즌 가족 글램핑 도전하기", done: false },
+      { id: 5, text: "서아 3번째 생일 홈 파티 & 기념 촬영", done: false },
+      { id: 6, text: "연말 크리스마스 트리 함께 장식하기", done: false },
+      { id: 7, text: "1년 가족 사진 앨범 포토북 제작하기", done: false }
+    ];
+
+    let plans = JSON.parse(localStorage.getItem('family_plans')) || defaultPlans;
+
+    const planItemsList = document.getElementById('planItemsList');
+    const progressBar = document.getElementById('progressBar');
+    const progressPercent = document.getElementById('progressPercent');
+    const progressRatio = document.getElementById('progressRatio');
+    const addPlanForm = document.getElementById('addPlanForm');
+    const newPlanInput = document.getElementById('newPlanInput');
+
+    function saveAndRenderPlans() {
+      localStorage.setItem('family_plans', JSON.stringify(plans));
+      planItemsList.innerHTML = '';
+
+      const total = plans.length;
+      const completed = plans.filter(p => p.done).length;
+      const pct = total === 0 ? 0 : Math.round((completed / total) * 100);
+
+      progressBar.style.width = `${pct}%`;
+      progressPercent.textContent = `${pct}%`;
+      progressRatio.textContent = `(${completed}/${total} 완료)`;
+
+      plans.forEach(plan => {
+        const li = document.createElement('li');
+        li.className = `flex items-center justify-between p-3 rounded-2xl border transition-all cursor-pointer ${
+          plan.done 
+            ? 'bg-skyTheme-50/50 border-skyTheme-200 text-slate-400 line-through' 
+            : 'bg-white border-slate-100 hover:border-skyTheme-200 text-slate-700 shadow-sm'
+        }`;
+        
+        li.innerHTML = `
+          <div class="flex items-center gap-3 flex-1">
+            <div class="w-5 h-5 rounded-lg border flex items-center justify-center transition-colors ${
+              plan.done ? 'bg-skyTheme-500 border-skyTheme-500 text-white' : 'border-slate-300 bg-white'
+            }">
+              ${plan.done ? '<i data-lucide="check" class="w-3.5 h-3.5"></i>' : ''}
+            </div>
+            <span class="text-xs sm:text-sm font-medium ${plan.done ? 'line-through text-slate-400' : 'text-slate-700'}">${plan.text}</span>
+          </div>
+          <button class="delete-plan-btn text-slate-300 hover:text-rose-500 p-1 opacity-0 hover:opacity-100 transition-opacity" data-id="${plan.id}">
+            <i data-lucide="trash-2" class="w-4 h-4"></i>
+          </button>
+        `;
+
+        // 카드 클릭 시 상태 토글
+        li.addEventListener('click', (e) => {
+          if (e.target.closest('.delete-plan-btn')) return;
+          plan.done = !plan.done;
+          saveAndRenderPlans();
+        });
+
+        // 삭제 버튼 이벤트
+        const delBtn = li.querySelector('.delete-plan-btn');
+        delBtn.addEventListener('click', (e) => {
+          e.stopPropagation();
+          plans = plans.filter(p => p.id !== plan.id);
+          saveAndRenderPlans();
+        });
+
+        // 모바일 터치 배려: 마우스오버 아니어도 살짝 보이게
+        li.addEventListener('mouseenter', () => delBtn.classList.remove('opacity-0'));
+        li.addEventListener('mouseleave', () => delBtn.classList.add('opacity-0'));
+
+        planItemsList.appendChild(li);
+      });
+
+      refreshIcons();
+    }
+
+    addPlanForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = newPlanInput.value.trim();
+      if (!text) return;
+
+      plans.push({
+        id: Date.now(),
+        text: text,
+        done: false
+      });
+      newPlanInput.value = '';
+      saveAndRenderPlans();
+    });
+
+
+    // ================= 4. 가족 메모판 로직 =================
+    const defaultMemos = [
+      {
+        id: 1,
+        author: "아빠 👨‍💼",
+        color: "sky",
+        text: "이번 주말 날씨 좋다니까 민준이랑 축구공 들고 한강 공원 가자!",
+        date: "어제"
+      },
+      {
+        id: 2,
+        author: "엄마 👩‍🎨",
+        color: "pink",
+        text: "냉장고에 서아 좋아하는 요거트랑 딸기 채워뒀어요~ 🍓",
+        date: "오늘 오전"
+      },
+      {
+        id: 3,
+        author: "민준 👦",
+        color: "yellow",
+        text: "엄마 아빠 사랑해요! 오늘 장난감 정리 혼자 다 했어요!",
+        date: "방금 전"
+      }
+    ];
+
+    let memos = JSON.parse(localStorage.getItem('family_memos')) || defaultMemos;
+
+    const memoForm = document.getElementById('memoForm');
+    const memoAuthor = document.getElementById('memoAuthor');
+    const memoText = document.getElementById('memoText');
+    const memoGrid = document.getElementById('memoGrid');
+
+    const colorStyles = {
+      sky: "bg-sky-50 border-sky-200 text-sky-900 shadow-sky-100",
+      yellow: "bg-amber-50 border-amber-200 text-amber-900 shadow-amber-100",
+      pink: "bg-rose-50 border-rose-200 text-rose-900 shadow-rose-100",
+      green: "bg-emerald-50 border-emerald-200 text-emerald-900 shadow-emerald-100",
+    };
+
+    function saveAndRenderMemos() {
+      localStorage.setItem('family_memos', JSON.stringify(memos));
+      memoGrid.innerHTML = '';
+
+      if (memos.length === 0) {
+        memoGrid.innerHTML = `
+          <div class="col-span-full py-8 text-center text-slate-400">
+            <p class="text-xs">첫 번째 가족 쪽지를 남겨보세요 :)</p>
+          </div>
+        `;
+        return;
+      }
+
+      memos.forEach(memo => {
+        const cardColorClass = colorStyles[memo.color] || colorStyles.sky;
+        const memoEl = document.createElement('div');
+        memoEl.className = `p-5 rounded-3xl border shadow-card transition-all duration-300 relative flex flex-col justify-between group ${cardColorClass}`;
+        
+        memoEl.innerHTML = `
+          <div>
+            <div class="flex items-center justify-between mb-2">
+              <span class="text-xs font-bold">${memo.author}</span>
+              <span class="text-[10px] opacity-60">${memo.date}</span>
+            </div>
+            <p class="text-xs sm:text-sm leading-relaxed font-medium break-words">${memo.text}</p>
+          </div>
+          <div class="mt-4 pt-2 border-t border-black/5 flex justify-end">
+            <button class="delete-memo-btn text-xs opacity-0 group-hover:opacity-100 text-slate-400 hover:text-rose-500 transition-opacity" data-id="${memo.id}">
+              지우기
+            </button>
+          </div>
+        `;
+
+        const delBtn = memoEl.querySelector('.delete-memo-btn');
+        delBtn.addEventListener('click', () => {
+          memos = memos.filter(m => m.id !== memo.id);
+          saveAndRenderMemos();
+        });
+
+        memoGrid.appendChild(memoEl);
+      });
+
+      refreshIcons();
+    }
+
+    memoForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      const text = memoText.value.trim();
+      if (!text) return;
+
+      const selectedColor = document.querySelector('input[name="memoColor"]:checked')?.value || 'sky';
+      const author = memoAuthor.value;
+
+      const newMemo = {
+        id: Date.now(),
+        author: author,
+        color: selectedColor,
+        text: text,
+        date: "방금 전"
+      };
+
+      memos.unshift(newMemo);
+      memoText.value = '';
+      saveAndRenderMemos();
+    });
+
+
+    // ================= 초기 실행 =================
+    window.addEventListener('DOMContentLoaded', () => {
+      renderGallery();
+      saveAndRenderPlans();
+      saveAndRenderMemos();
+      refreshIcons();
+    });
+  </script>
+</body>
+</html>
